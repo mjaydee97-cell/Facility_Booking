@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#C00000"/>
+    </marker>
+    <marker id="ahg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7F7F7F"/>
+    </marker>
+    <filter id="sh" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#FFFFFF"/>
+  <text x="40" y="70" font-size="46" fill="#000">VI. System Architecture</text>
+
+  <!-- ============ FIREBASE CLOUD MESSAGING ============ -->
+  <rect x="330" y="125" width="400" height="80" rx="8" fill="#C00000" filter="url(#sh)"/>
+  <text x="530" y="160" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle">Firebase Cloud Messaging</text>
+  <text x="530" y="188" font-size="16" fill="#fff" text-anchor="middle">push delivery service (Google)</text>
+
+  <!-- App tier -> FCM -->
+  <path d="M800,300 L800,165 L742,165" fill="none" stroke="#C00000" stroke-width="5" marker-end="url(#ah)"/>
+  <text x="812" y="222" font-size="15" font-style="italic" fill="#C00000">① send message</text>
+  <text x="812" y="241" font-size="15" font-style="italic" fill="#C00000">(FCM HTTP v1 API)</text>
+
+  <!-- FCM -> Presentation tier -->
+  <path d="M330,165 L240,165 L240,288" fill="none" stroke="#C00000" stroke-width="5" marker-end="url(#ah)"/>
+  <text x="252" y="222" font-size="15" font-style="italic" fill="#C00000">② push</text>
+  <text x="252" y="241" font-size="15" font-style="italic" fill="#C00000">notification</text>
+
+  <!-- ============ PRESENTATION TIER ============ -->
+  <rect x="50" y="300" width="380" height="330" rx="10" fill="#13235B" filter="url(#sh)"/>
+  <text x="240" y="345" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">PRESENTATION TIER</text>
+  <text x="240" y="375" font-size="18" fill="#fff" text-anchor="middle">Flutter Client – Android &amp; iOS</text>
+  <line x1="80" y1="395" x2="400" y2="395" stroke="#5A6B9E" stroke-width="1.5"/>
+  <g font-size="16" fill="#E6EAF5">
+    <text x="80" y="428" font-weight="bold" fill="#fff">User role</text>
+    <text x="92" y="453">• Browse facilities &amp; availability</text>
+    <text x="92" y="477">• Book / cancel reservations</text>
+    <text x="92" y="501">• QR check-in &amp; check-out</text>
+    <text x="80" y="535" font-weight="bold" fill="#fff">Admin role</text>
+    <text x="92" y="560">• Approve / reject requests</text>
+    <text x="92" y="584">• Utilization dashboard</text>
+    <text x="92" y="608">• Manage facilities</text>
+  </g>
+
+  <!-- Presentation <-> Application -->
+  <line x1="436" y1="430" x2="542" y2="430" stroke="#C00000" stroke-width="6" marker-end="url(#ah)"/>
+  <text x="490" y="412" font-size="14" font-style="italic" fill="#C00000" text-anchor="middle">HTTPS request</text>
+  <text x="490" y="458" font-size="13" font-style="italic" fill="#C00000" text-anchor="middle">REST + JWT</text>
+  <line x1="548" y1="520" x2="442" y2="520" stroke="#7F7F7F" stroke-width="6" marker-end="url(#ahg)"/>
+  <text x="490" y="548" font-size="14" font-style="italic" fill="#595959" text-anchor="middle">JSON response</text>
+
+  <!-- ============ APPLICATION / LOGIC TIER ============ -->
+  <rect x="560" y="300" width="480" height="330" rx="10" fill="#44546A" filter="url(#sh)"/>
+  <text x="800" y="345" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">APPLICATION / LOGIC TIER</text>
+  <text x="800" y="375" font-size="18" fill="#fff" text-anchor="middle">RESTful API – Node.js + Express</text>
+  <g font-size="15" fill="#13235B" text-anchor="middle" font-weight="bold">
+    <rect x="585" y="395" width="135" height="50" rx="6" fill="#DCE3EE"/>
+    <text x="652" y="425">Auth (JWT)</text>
+    <rect x="732" y="395" width="135" height="50" rx="6" fill="#DCE3EE"/>
+    <text x="800" y="425">Facilities</text>
+    <rect x="879" y="395" width="136" height="50" rx="6" fill="#DCE3EE"/>
+    <text x="947" y="425">Booking</text>
+    <rect x="585" y="455" width="135" height="50" rx="6" fill="#DCE3EE"/>
+    <text x="652" y="477">Conflict</text>
+    <text x="652" y="495">Check</text>
+    <rect x="732" y="455" width="135" height="50" rx="6" fill="#DCE3EE"/>
+    <text x="800" y="477">Check-in /</text>
+    <text x="800" y="495">Usage Log</text>
+    <rect x="879" y="455" width="136" height="50" rx="6" fill="#DCE3EE"/>
+    <text x="947" y="485">Analytics</text>
+    <rect x="585" y="515" width="430" height="44" rx="6" fill="#DCE3EE"/>
+    <text x="800" y="542">Notifications (FCM sender + in-app inbox)</text>
+  </g>
+  <rect x="585" y="569" width="430" height="44" rx="6" fill="none" stroke="#DCE3EE" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="800" y="596" font-size="15" fill="#fff" text-anchor="middle">Scheduler: reminders · no-show release · auto-complete</text>
+
+  <!-- Application <-> Data -->
+  <line x1="1046" y1="430" x2="1152" y2="430" stroke="#C00000" stroke-width="6" marker-end="url(#ah)"/>
+  <text x="1100" y="412" font-size="14" font-style="italic" fill="#C00000" text-anchor="middle">SQL query</text>
+  <line x1="1158" y1="520" x2="1052" y2="520" stroke="#7F7F7F" stroke-width="6" marker-end="url(#ahg)"/>
+  <text x="1100" y="548" font-size="14" font-style="italic" fill="#595959" text-anchor="middle">result set</text>
+
+  <!-- ============ DATA TIER ============ -->
+  <rect x="1170" y="300" width="380" height="330" rx="10" fill="#13235B" filter="url(#sh)"/>
+  <text x="1360" y="345" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">DATA TIER</text>
+  <text x="1360" y="375" font-size="18" fill="#fff" text-anchor="middle">PostgreSQL 16 Database</text>
+  <line x1="1200" y1="395" x2="1520" y2="395" stroke="#5A6B9E" stroke-width="1.5"/>
+  <g font-size="16" fill="#E6EAF5" font-family="Consolas, 'Courier New', monospace">
+    <text x="1205" y="430">users</text>
+    <text x="1205" y="456">facilities</text>
+    <text x="1205" y="482">bookings</text>
+    <text x="1205" y="508">device_tokens</text>
+    <text x="1205" y="534">notifications</text>
+  </g>
+  <rect x="1195" y="552" width="330" height="60" rx="6" fill="#C00000"/>
+  <text x="1360" y="577" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">EXCLUDE constraint on time ranges</text>
+  <text x="1360" y="598" font-size="15" fill="#fff" text-anchor="middle">→ double booking impossible</text>
+
+  <!-- ============ CAPTION ============ -->
+  <text x="800" y="715" font-size="22" fill="#000" text-anchor="middle">A three-tier client–server architecture: the Flutter client calls a REST API over HTTPS;</text>
+  <text x="800" y="747" font-size="22" fill="#000" text-anchor="middle">all booking, conflict-checking and analytics logic runs on the server against PostgreSQL,</text>
+  <text x="800" y="779" font-size="22" fill="#000" text-anchor="middle">and the server pushes reminders and approval alerts to devices through Firebase Cloud Messaging.</text>
+</svg>
